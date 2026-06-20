@@ -1,61 +1,84 @@
-Markdown
-# 🚀 Müşteri Yorumu Analiz Sistemi (NLP & Fuzzy Logic)
+# Customer Review Analysis System (NLP & Fuzzy Logic)
 
-Bu proje, e-ticaret platformlarındaki müşteri yorumlarını otomatik olarak analiz etmek, duygu sınıflaması yapmak ve bulanık mantık (Fuzzy Logic) tabanlı güvenilirlik skorları üretmek amacıyla geliştirilmiş entegre bir yapay zeka çözümüdür.
+This project is an integrated artificial intelligence solution developed to automatically analyze customer reviews on e-commerce platforms, perform sentiment classification, and generate reliability scores based on Fuzzy Logic.
 
-## 📋 Proje Özeti
-* **Duygu Analizi:** Makine öğrenmesi algoritmaları ile yorumların olumlu, olumsuz veya nötr olup olmadığını belirler.
-* **Güvenilirlik Skorlama:** Yorumun uzunluğu, ürün puanı ve yayınlanma tarihi gibi parametreleri kullanarak "yorum güvenilirliği" hesaplar.
-* **İş Odaklı Pipeline:** Analiz edilen veriler üzerinden otomatik "şikayet özeti" üretimine olanak tanıyan bir altyapı sunar.
+## 📋 Project Summary
+* **Sentiment Analysis:** Determines whether reviews are positive, negative, or neutral using machine learning algorithms.
+* **Reliability Scoring:** Calculates "review reliability" using parameters such as review length, product rating, and publication date.
+* **Business-Oriented Pipeline:** Provides an infrastructure that enables the automatic generation of "complaint summaries" based on analyzed data.
 
-## 📂 Teknik Mimari ve Dosya Yapısı
-Sistem, sürdürülebilir ve modüler bir yapı üzerine inşa edilmiştir:
+## 📊 Visualizations and Model Performance
+**1. Streamlit User Interface**
+![Streamlit Interface](assets/streamlit_user_interface.png)
+
+**2. Fuzzy Logic Membership Example**
+![Fuzzy Logic](assets/fuzzy_example.png)
+
+**3. Model Performances (Confusion Matrices)**
+*Random Forest Classifier:*
+![Random Forest Confusion Matrix](assets/rf_confusion_matrix.png)
+
+*Logistic Regression Classifier:*
+![Logistic Regression Confusion Matrix](assets/lr_confusion_matrix.png)
+
+**4. Exploratory Data Analysis (EDA)**
+*Rating Distribution:*
+![Rating Distribution](assets/The_distribution_of_rating.png)
+
+*Comment Length Distribution:*
+![Comment Length Distribution](assets/the_distribution_of_length_of_comment.png)
+
+*Balanced Sentiment Classes:*
+![Balanced Sentiment Classes](assets/balanced_sentiment_class.png)
+
+## 📂 Technical Architecture and File Structure
+The system is built on a sustainable and modular structure:
 
 ```text
 piton-nlp-fuzzy-case/
 ├── app/
-│   └── main.py             # Streamlit tabanlı interaktif kullanıcı arayüzü
+│   └── main.py             # Streamlit-based interactive user interface
 ├── data/
-│   ├── raw/                # Orijinal Kaggle veri seti (7817_1.csv)
-│   └── processed/          # Temizlenmiş ve dengelenmiş veriler
-├── models/                 # Eğitilmiş .pkl modelleri ve vektörelleştiriciler
-├── notebooks/              # Adım adım veri analizi ve modelleme süreçleri
-└── src/                    # Modüler kaynak kodları
-    ├── data_processor.py   # NLP ön işleme (Regex, Lemmatization, Stop-words)
-    ├── sentiment_model.py  # Tahmin motoru (Random Forest/Logistic Regression)
-    └── fuzzy_inference.py  # Scikit-fuzzy tabanlı güvenilirlik sistemi
-🛠 Teknik Tercihler ve Gerekçeler
-NLP Ön İşleme: Metin temizliğinde NLTK kütüphanesi kullanılarak; lowercasing, punctuation removal, stop-word elimination ve lemmatization adımları uygulandı.
+│   ├── raw/                # Original Kaggle dataset (7817_1.csv)(https://www.kaggle.com/datasets/yasserh/amazon-product-reviews-dataset)
+│   └── processed/          # Cleaned and balanced data
+├── models/                 # Trained .pkl models and vectorizers
+├── notebooks/              # Step-by-step data analysis and modeling processes
+└── src/                    # Modular source code
+    ├── data_processor.py   # NLP preprocessing (Regex, Lemmatization, Stop-words)
+    ├── sentiment_model.py  # Prediction engine (Random Forest/Logistic Regression)
+    └── fuzzy_inference.py  # Scikit-fuzzy based reliability system
+🛠 Technical Choices and Justifications
+NLP Preprocessing: Text cleaning was performed using the NLTK library, applying steps such as lowercasing, punctuation removal, stop-word elimination, and lemmatization.
 
-Vektörizasyon: Yüksek boyutlu metin verilerinde seyrek matris (sparse matrix) oluşumunu ve anlamsal ayırt ediciliği optimize etmek için TF-IDF yöntemi seçildi.
+Vectorization: TF-IDF method was selected to optimize semantic distinctiveness and handle the sparse matrix formation in high-dimensional text data.
 
-Model: Random Forest Classifier, metin verisindeki doğrusal olmayan (non-linear) karmaşık örüntüleri yakalamadaki başarısı ve hiperparametre optimizasyonu ile sağlanan genel başarımı nedeniyle ana model olarak seçildi.
+Model: Random Forest Classifier was selected as the core model due to its success in capturing complex non-linear patterns in text data and its overall performance achieved through hyperparameter optimization.
 
-Bulanık Mantık: Yorum güvenilirliği gibi sübjektif ve belirsizlik içeren kavramları matematiksel olarak modellemek için scikit-fuzzy kullanıldı.
+Fuzzy Logic: scikit-fuzzy was utilized to mathematically model subjective and uncertain concepts such as "review reliability."
 
-🚀 Kurulum (Setup)
-Repoyu Klonlayın:
 
-Bash
-git clone [REPONUN_LINKI]
-cd piton-nlp-fuzzy-case
-Sanal Ortam Oluşturun:
+🚀 Setup (Installation)
+Clone the repository:
 
 Bash
+git clone [https://github.com/ZekiKurt0/NLP-Fuzzy-Case](https://github.com/ZekiKurt0/NLP-Fuzzy-Case)
+cd  nlp-fuzzy-case
+Create a Virtual Environment:
+
+Bash
+# Windows
 python -m venv venv
-# Windows:
 venv\Scripts\activate
-# Linux/macOS:
+
+# Linux/macOS
+python3 -m venv venv
 source venv/bin/activate
-Bağımlılıkları Yükleyin:
+Install Dependencies:
 
 Bash
 pip install -r requirements.txt
-Uygulamayı Çalıştırın:
+Run the Application:
 
 Bash
 streamlit run app/main.py
-
-
-
-Geliştirici: [Muhammed Zeki Kurt] İletişim: [m.zekikurtt@gmail.com]
+Developer: Muhammed Zeki Kurt | Contact: m.zekikurtt@gmail.com

@@ -10,20 +10,20 @@ def init_nltk():
     nltk.download('wordnet', quiet=True)
     nltk.download('punkt_tab', quiet=True)
 
-# Negation belirteçleri — stop word listesinden ÇIKARILACAK
+
 NEGATION_WORDS = {
     "not", "no", "never", "neither", "nor", "none",
     "nobody", "nothing", "nowhere", "hardly", "barely",
     "scarcely", "n't"
 }
 
-NEGATION_WINDOW = 4  # negation'dan sonra kaç kelime işaretlensin
+NEGATION_WINDOW = 4   
 
 
 class DataProcessor:
     def __init__(self):
         init_nltk()
-        # Negation kelimelerini stop word listesinden çıkarıyoruz
+     
         base_stops = set(stopwords.words('english'))
         self.stop_words = base_stops - NEGATION_WORDS
         self.lemmatizer = WordNetLemmatizer()
@@ -39,7 +39,7 @@ class DataProcessor:
         negate = 0
 
         for tok in tokens:
-            # Noktalama → negation sıfırla
+            
             if re.search(r'[.!?,;]', tok):
                 negate = 0
                 result.append(tok)
@@ -67,23 +67,23 @@ class DataProcessor:
         if not isinstance(text, str):
             return ""
 
-        # 1. Negation işaretleme — ham metin üzerinde
+        
         text = self._apply_negation(text)
 
-        # 2. Küçük harf + temizleme (NOT_ alt çizgisini koru)
+       
         text = text.lower()
         text = re.sub(r'http\S+|www\S+', '', text)
         text = re.sub(r'[^a-z_\s]', ' ', text)
         text = re.sub(r'\s+', ' ', text).strip()
 
-        # 3. Stop-word + lemmatize
+        
         tokens = text.split()
         processed = []
         for w in tokens:
             if len(w) <= 1:
                 continue
             if w.startswith('not_'):
-                # NOT_ önekini koru, kök kısmını lemmatize et
+                
                 root = self.lemmatizer.lemmatize(w[4:])
                 processed.append(f'not_{root}')
             elif w not in self.stop_words:
